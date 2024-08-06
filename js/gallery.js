@@ -65,6 +65,7 @@ const images = [
 ];
 
 const gallery = document.querySelector('.gallery');
+let instance = 0;
 
 const markup = images
   .map(({ preview, original, description } = images) => {
@@ -90,8 +91,16 @@ gallery.addEventListener('click', event => {
   }
 
   console.log(event.target.dataset.source);
-  const instance = basicLightbox.create(
+  instance = basicLightbox.create(
     `<img src="${event.target.dataset.source}"></img>`,
   );
   instance.show();
 });
+
+document.addEventListener('keydown', esc);
+
+function esc(event) {
+  if (event.code === 'Escape') {
+    instance.close();
+  }
+}
